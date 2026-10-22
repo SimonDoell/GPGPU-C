@@ -4,32 +4,7 @@
 #include <stdbool.h>
 #include <vulkan/vulkan_core.h>
 #include "vulkan/vulkan.h"
-#include "vk_init.h"
-#include "vk_utils.h"
-#include "file_utils.h"
 #include "vulkan_helper.h"
-
-#ifdef NDEBUG
-    const bool debug = false;
-#else
-    const bool debug = true;
-#endif
-
-// uint32_t find_memory_type(uint32_t type_filter,
-//                           VkMemoryPropertyFlags properties) {
-//     VkPhysicalDeviceMemoryProperties mem_props;
-//     vkGetPhysicalDeviceMemoryProperties(physical_device, &mem_props);
-//
-//     for (uint32_t i = 0; i < mem_props.memoryTypeCount; i++) {
-//         if ((type_filter & (1 << i)) &&
-//             (mem_props.memoryTypes[i].propertyFlags & properties)
-//                 == properties) {
-//             return i;
-//         }
-//     }
-//     return UINT32_MAX;  // Not found
-// }
-
 
 // // Map memory
 // void* mapped;

@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <vulkan/vulkan.h>
 #include <vulkan/vulkan_core.h>
-#include "vulkan/vulkan.h"
 #include "vulkan_helper.h"
 
 // // Map memory
@@ -91,10 +91,24 @@ int main(void) {
     uint32_t compute_queue_family = UINT32_MAX;
 
     for (uint32_t i = 0; i < queue_family_count; ++i) {
-        if (queue_families[i].queueFlags & VK_QUEUE_COMPUTE_BIT) {
+        uint32_t flags = queue_families[i].queueFlags;
+
+        if (flags & VK_QUEUE_COMPUTE_BIT) {
             printf("\tQueue family %u: supports COMPUTE (%u queue(s))\n", i, queue_families[i].queueCount);
             if (compute_queue_family == UINT32_MAX)
                 compute_queue_family = i;
+        } else if (flags & VK_QUEUE_GRAPHICS_BIT) {
+            printf("\tQueue family %u: supports GRAPHICS (%u queue(s))\n", i, queue_families[i].queueCount);
+        } else if (flags & VK_QUEUE_TRANSFER_BIT) {
+            printf("\tQueue family %u: supports TRANSFER (%u queue(s))\n", i, queue_families[i].queueCount);
+        } else if (flags & VK_QUEUE_SPARSE_BINDING_BIT) {
+            printf("\tQueue family %u: supports SPARSE_BINDING (%u queue(s))\n", i, queue_families[i].queueCount);
+        } else if (flags & VK_QUEUE_PROTECTED_BIT) {
+            printf("\tQueue family %u: supports PROTECTED (%u queue(s))\n", i, queue_families[i].queueCount);
+        } else if (flags & VK_QUEUE_VIDEO_DECODE_BIT_KHR) {
+            printf("\tQueue family %u: supports VIDEO_DECODE (%u queue(s))\n", i, queue_families[i].queueCount);
+        } else if (flags & VK_QUEUE_VIDEO_ENCODE_BIT_KHR) {
+            printf("\tQueue family %u: supports VIDEO_ENCODE (%u queue(s))\n", i, queue_families[i].queueCount);
         }
     }
 
@@ -127,6 +141,7 @@ int main(void) {
     VkQueue compute_queue;
     vkGetDeviceQueue(device, compute_queue_family, 0, &compute_queue);
 
+    printf("Compute queue retrieved!\n");
 
     VkBufferCreateInfo buffer_info = {
         .sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,

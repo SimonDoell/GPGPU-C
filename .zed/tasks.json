@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Build and Run",
+    "command": "./scripts/compile_release.sh && build/Boilerplate",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "shell": "system",
+    "show_summary": false,
+    "show_command": false,
+    "save": "none"
+  },
+  {
+    "label": "Build and Valgrind",
+    "command": "./scripts/compile_debug.sh && valgrind build/Boilerplate",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "shell": "system",
+    "show_summary": false,
+    "show_command": false,
+    "save": "none"
+  }
+]
